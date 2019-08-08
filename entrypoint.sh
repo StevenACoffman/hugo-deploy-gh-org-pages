@@ -32,7 +32,7 @@ chmod 644 "${HOME}/.ssh/known_hosts"
 eval "$(ssh-agent)"
 ssh-add "${HOME}/.ssh/deploy_key"
 
-
+ssh -T git@github.com
 echo "set git"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
