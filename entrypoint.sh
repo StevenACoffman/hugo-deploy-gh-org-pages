@@ -16,18 +16,22 @@ then
    exit 1
 fi
 
-printf "%s" "$DEPLOY_KEY_PRIVATE" > "${HOME}/.ssh/id_rsa"
-chmod 600 "${HOME}/.ssh/id_rsa"
-wc -c "${HOME}/.ssh/id_rsa"
+printf "%s" "$DEPLOY_KEY_PRIVATE" > "${HOME}/.ssh/deploy_key"
+chmod 600 "${HOME}/.ssh/deploy_key"
+wc -c "${HOME}/.ssh/deploy_key"
 
-printf "%s" "$DEPLOY_KEY_PUBLIC" > "${HOME}/.ssh/id_rsa.pub"
-chmod 644 "${HOME}/.ssh/id_rsa.pub"
-wc -c "${HOME}/.ssh/id_rsa.pub"
+printf "%s" "$DEPLOY_KEY_PUBLIC" > "${HOME}/.ssh/deploy_key.pub"
+chmod 644 "${HOME}/.ssh/deploy_key.pub"
+wc -c "${HOME}/.ssh/deploy_key.pub"
 
-echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> "${HOME}/.ssh/config"
+echo -e "Host github.com\n\tIdentityFile ~/.ssh/deploy_key\n\tStrictHostKeyChecking no\n\tAddKeysToAgent yes\n" >> "${HOME}/.ssh/config"
 chmod 644 "${HOME}/.ssh/config"
 ssh-keyscan github.com > "${HOME}/.ssh/known_hosts"
 chmod 644 "${HOME}/.ssh/known_hosts"
+
+eval "$(ssh-agent)"
+ssh-add "${HOME}/.ssh/deploy_key"
+
 
 echo "set git"
 git config --global user.email "$EMAIL"
