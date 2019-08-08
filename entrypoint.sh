@@ -57,7 +57,6 @@ git pull origin master
 cd "$GITHUB_WORKSPACE" || exit 1
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 
-
 hugo
 
 # Go To Public folder
@@ -68,10 +67,7 @@ git add .
 
 # Commit changes.
 msg="rebuilding site $(date)"
-if [ -n "$*" ]; then
-	msg="$*"
-fi
-git commit -m "$msg"
+git commit -am "$msg"
 
 # Push source and build repos.
 git push origin master
