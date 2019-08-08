@@ -15,6 +15,8 @@ wc -c "${HOME}/.ssh/id_rsa"
 
 echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> "${HOME}/.ssh/config"
 chmod 644 "${HOME}/.ssh/config"
+ssh-keyscan github.com > "${HOME}/.ssh/known_hosts"
+chmod 644 "${HOME}/.ssh/known_hosts"
 
 cd $GITHUB_WORKSPACE
 ls -la "${HOME}/.ssh"
