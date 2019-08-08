@@ -1,8 +1,10 @@
-#!/bin/sh
+${KEY_FILENAME}#!/bin/sh
 set -e
 # HOME=/github/workspace
-mkdir -p "${HOME}/.ssh"
-chmod 700 "${HOME}/.ssh"
+SSH_PATH="/root/.ssh"
+KEY_FILENAME="id_rsa"
+mkdir -p "${SSH_PATH}/.ssh"
+chmod 700 "${SSH_PATH}/.ssh"
 
 if [ "$DEPLOY_KEY_PRIVATE" = "" ]
 then
@@ -16,34 +18,34 @@ then
    exit 1
 fi
 
-printf "%s" "$DEPLOY_KEY_PRIVATE" > "${HOME}/.ssh/deploy_key"
-chmod 600 "${HOME}/.ssh/deploy_key"
-wc -c "${HOME}/.ssh/deploy_key"
+printf "%s" "$DEPLOY_KEY_PRIVATE" > "${SSH_PATH}/.ssh/${KEY_FILENAME}"
+chmod 600 "${SSH_PATH}/.ssh/${KEY_FILENAME}"
+wc -c "${SSH_PATH}/.ssh/${KEY_FILENAME}"
 
-printf "%s" "$DEPLOY_KEY_PUBLIC" > "${HOME}/.ssh/deploy_key.pub"
-chmod 644 "${HOME}/.ssh/deploy_key.pub"
-wc -c "${HOME}/.ssh/deploy_key.pub"
+printf "%s" "$DEPLOY_KEY_PUBLIC" > "${SSH_PATH}/.ssh/${KEY_FILENAME}.pub"
+chmod 644 "${SSH_PATH}/.ssh/${KEY_FILENAME}.pub"
+wc -c "${SSH_PATH}/.ssh/${KEY_FILENAME}.pub"
 
-echo -e "Host github.com\n\tIdentityFile ~/.ssh/deploy_key\n\tStrictHostKeyChecking no\n\tAddKeysToAgent yes\n" >> "${HOME}/.ssh/config"
-chmod 644 "${HOME}/.ssh/config"
+echo -e "Host github.com\n\tIdentityFile ~/.ssh/${KEY_FILENAME}\n\tStrictHostKeyChecking no\n\tAddKeysToAgent yes\n" >> "${SSH_PATH}/.ssh/config"
+chmod 644 "${SSH_PATH}/.ssh/config"
 
 eval "$(ssh-agent)"
-ssh-add "${HOME}/.ssh/deploy_key"
+ssh-add "${SSH_PATH}/.ssh/${KEY_FILENAME}"
 
-ssh-keyscan github.com > "${HOME}/.ssh/known_hosts"
-chmod 644 "${HOME}/.ssh/known_hosts"
+ssh-keyscan github.com > "${SSH_PATH}/.ssh/known_hosts"
+chmod 644 "${SSH_PATH}/.ssh/known_hosts"
 # Debug ssh:
 set +e
-ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${HOME}/.ssh/deploy_key" -F /dev/null -Tv git@github.com
+ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${SSH_PATH}/.ssh/${KEY_FILENAME}" -F /dev/null -Tv git@github.com
 set -e
 echo "set git"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
-git config --global core.sshCommand 'ssh -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /github/workspace/.ssh/deploy_key -F /dev/null'
+git config --global core.sshCommand 'ssh -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa -F /dev/null'
 
 
 cd $GITHUB_WORKSPACE
-ls -la "${HOME}/.ssh"
+ls -la "${SSH_PATH}/.ssh"
 printf "\033[0;32mSubmodule Safety Engaged...\033[0m\n"
 git submodule sync --recursive && git submodule update --init --recursive
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
