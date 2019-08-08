@@ -42,12 +42,19 @@ echo "set git"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
 git config --global core.sshCommand 'ssh -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa -F /dev/null'
-
+git config --global status.submodulesummary 1
+git config --global diff.submodule log
 
 cd "$GITHUB_WORKSPACE" || exit 1
 ls -la "${SSH_PATH}"
 printf "\033[0;32mSubmodule Safety Engaged...\033[0m\n"
-git submodule sync --recursive && git submodule update --init --recursive
+git submodule sync --recursive
+git submodule update --init --recursive
+cd public
+git checkout master
+git fetch
+git pull origin master
+cd "$GITHUB_WORKSPACE" || exit 1
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 
 
