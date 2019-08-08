@@ -3,8 +3,8 @@ set -e
 # HOME=/github/workspace
 SSH_PATH="/root/.ssh"
 KEY_FILENAME="id_rsa"
-mkdir -p "${SSH_PATH}/.ssh"
-chmod 700 "${SSH_PATH}/.ssh"
+mkdir -p "${SSH_PATH}"
+chmod 700 "${SSH_PATH}"
 
 if [ "$DEPLOY_KEY_PRIVATE" = "" ]
 then
@@ -18,25 +18,25 @@ then
    exit 1
 fi
 
-printf "%s" "$DEPLOY_KEY_PRIVATE" > "${SSH_PATH}/.ssh/${KEY_FILENAME}"
-chmod 600 "${SSH_PATH}/.ssh/${KEY_FILENAME}"
-wc -c "${SSH_PATH}/.ssh/${KEY_FILENAME}"
+printf "%s" "$DEPLOY_KEY_PRIVATE" > "${SSH_PATH}/${KEY_FILENAME}"
+chmod 600 "${SSH_PATH}/${KEY_FILENAME}"
+wc -c "${SSH_PATH}/${KEY_FILENAME}"
 
-printf "%s" "$DEPLOY_KEY_PUBLIC" > "${SSH_PATH}/.ssh/${KEY_FILENAME}.pub"
-chmod 644 "${SSH_PATH}/.ssh/${KEY_FILENAME}.pub"
-wc -c "${SSH_PATH}/.ssh/${KEY_FILENAME}.pub"
+printf "%s" "$DEPLOY_KEY_PUBLIC" > "${SSH_PATH}/${KEY_FILENAME}.pub"
+chmod 644 "${SSH_PATH}/${KEY_FILENAME}.pub"
+wc -c "${SSH_PATH}/${KEY_FILENAME}.pub"
 
-echo -e "Host github.com\n\tIdentityFile ~/.ssh/${KEY_FILENAME}\n\tStrictHostKeyChecking no\n\tAddKeysToAgent yes\n" >> "${SSH_PATH}/.ssh/config"
-chmod 644 "${SSH_PATH}/.ssh/config"
+echo -e "Host github.com\n\tIdentityFile ~/.ssh/${KEY_FILENAME}\n\tStrictHostKeyChecking no\n\tAddKeysToAgent yes\n" >> "${SSH_PATH}/config"
+chmod 644 "${SSH_PATH}/config"
 
 eval "$(ssh-agent)"
-ssh-add "${SSH_PATH}/.ssh/${KEY_FILENAME}"
+ssh-add "${SSH_PATH}/${KEY_FILENAME}"
 
-ssh-keyscan github.com > "${SSH_PATH}/.ssh/known_hosts"
-chmod 644 "${SSH_PATH}/.ssh/known_hosts"
+ssh-keyscan github.com > "${SSH_PATH}/known_hosts"
+chmod 644 "${SSH_PATH}/known_hosts"
 # Debug ssh:
 set +e
-ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${SSH_PATH}/.ssh/${KEY_FILENAME}" -F /dev/null -Tv git@github.com
+ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${SSH_PATH}/${KEY_FILENAME}" -F /dev/null -Tv git@github.com
 set -e
 echo "set git"
 git config --global user.email "$EMAIL"
@@ -45,7 +45,7 @@ git config --global core.sshCommand 'ssh -o IdentitiesOnly=yes -o UserKnownHosts
 
 
 cd "$GITHUB_WORKSPACE" || exit 1
-ls -la "${SSH_PATH}/.ssh"
+ls -la "${SSH_PATH}"
 printf "\033[0;32mSubmodule Safety Engaged...\033[0m\n"
 git submodule sync --recursive && git submodule update --init --recursive
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
