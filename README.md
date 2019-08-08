@@ -33,7 +33,7 @@ Inspired by [khanhicetea/gh-actions-hugo-deploy-gh-pages](https://github.com/kha
 
 ## Environment Variables
 
-- `HUGO_VERSION` : **optional**, default is **0.54.0** - [check all versions here](https://github.com/gohugoio/hugo/releases)
+- `HUGO_VERSION` : **optional**, default is **0.56.3** - [check all versions here](https://github.com/gohugoio/hugo/releases)
 
 ## Example
 
