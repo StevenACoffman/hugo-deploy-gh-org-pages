@@ -16,8 +16,8 @@ LABEL "com.github.actions.description"="Publishes and deploys the project to Git
 LABEL "com.github.actions.icon"="upload-cloud"
 LABEL "com.github.actions.color"="yellow"
 
-LABEL "repository"="http://github.com/StevenACoffman/gh-actions-hugo-deploy-gh-org-pages"
-LABEL "homepage"="http://github.com/StevenACoffman/gh-actions-hugo-deploy-gh-org-pages"
+LABEL "repository"="http://github.com/StevenACoffman/hugo-deploy-gh-org-pages"
+LABEL "homepage"="http://github.com/StevenACoffman/hugo-deploy-gh-org-pages"
 
 RUN apk add --update git openssh-client bash git-subtree \
     findutils py-pygments asciidoctor libc6-compat libstdc++ \
