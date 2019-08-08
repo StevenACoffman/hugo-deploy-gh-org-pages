@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-
+# HOME=/github/workspace
 mkdir -p "${HOME}/.ssh"
 chmod 700 "${HOME}/.ssh"
 
@@ -34,11 +34,13 @@ ssh-keyscan github.com > "${HOME}/.ssh/known_hosts"
 chmod 644 "${HOME}/.ssh/known_hosts"
 # Debug ssh:
 set +e
-ssh -tv git@github.com
+ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${HOME}/.ssh/deploy_key" -F /dev/null -Tv git@github.com
 set -e
 echo "set git"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
+git config --global core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /github/workspace/.ssh/deploy_key -F /dev/null'
+
 
 cd $GITHUB_WORKSPACE
 ls -la "${HOME}/.ssh"

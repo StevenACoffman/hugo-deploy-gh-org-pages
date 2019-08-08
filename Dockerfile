@@ -21,8 +21,7 @@ LABEL "homepage"="http://github.com/StevenACoffman/hugo-org-action"
 
 RUN apk add --update git openssh-client bash git-subtree \
     findutils py-pygments asciidoctor libc6-compat libstdc++ \
-    ca-certificates \
-    && apk upgrade 
+    ca-certificates
 COPY --from=build /go/bin/hugo /usr/local/bin
 
 ADD entrypoint.sh /
