@@ -66,7 +66,7 @@ cd public
 git add .
 
 # Commit changes.
-msg="rebuilding site $(date)"
+msg="parent repo action automated rebuilding of site at $(date)"
 git commit -am "$msg"
 
 # Push source and build repos.
