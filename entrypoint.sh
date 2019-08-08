@@ -39,7 +39,7 @@ set -e
 echo "set git"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
-git config --global core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /github/workspace/.ssh/deploy_key -F /dev/null'
+git config --global core.sshCommand 'ssh -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /github/workspace/.ssh/deploy_key -F /dev/null'
 
 
 cd $GITHUB_WORKSPACE
