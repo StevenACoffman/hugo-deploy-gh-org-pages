@@ -26,13 +26,14 @@ wc -c "${HOME}/.ssh/deploy_key.pub"
 
 echo -e "Host github.com\n\tIdentityFile ~/.ssh/deploy_key\n\tStrictHostKeyChecking no\n\tAddKeysToAgent yes\n" >> "${HOME}/.ssh/config"
 chmod 644 "${HOME}/.ssh/config"
-ssh-keyscan github.com > "${HOME}/.ssh/known_hosts"
-chmod 644 "${HOME}/.ssh/known_hosts"
 
 eval "$(ssh-agent)"
 ssh-add "${HOME}/.ssh/deploy_key"
 
-ssh -T git@github.com
+ssh-keyscan github.com > "${HOME}/.ssh/known_hosts"
+chmod 644 "${HOME}/.ssh/known_hosts"
+
+ssh -Tv git@github.com
 echo "set git"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
