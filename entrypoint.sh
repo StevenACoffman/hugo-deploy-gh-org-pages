@@ -32,8 +32,8 @@ ssh-add "${HOME}/.ssh/deploy_key"
 
 ssh-keyscan github.com > "${HOME}/.ssh/known_hosts"
 chmod 644 "${HOME}/.ssh/known_hosts"
-
-ssh -Tv git@github.com
+# Debug ssh:
+# ssh -Tv git@github.com
 echo "set git"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
