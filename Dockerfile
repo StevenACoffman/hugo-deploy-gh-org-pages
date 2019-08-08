@@ -19,7 +19,7 @@ LABEL "com.github.actions.color"="yellow"
 LABEL "repository"="http://github.com/StevenACoffman/hugo-org-action"
 LABEL "homepage"="http://github.com/StevenACoffman/hugo-org-action"
 
-RUN apk add --update git ssh bash git-subtree \
+RUN apk add --update git openssh-client bash git-subtree \
     findutils py-pygments asciidoctor libc6-compat libstdc++ \
     && apk upgrade \
     && apk add --no-cache ca-certificates
