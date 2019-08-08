@@ -20,11 +20,11 @@ fi
 
 printf "%s" "$DEPLOY_KEY_PRIVATE" > "${SSH_PATH}/${KEY_FILENAME}"
 chmod 600 "${SSH_PATH}/${KEY_FILENAME}"
-wc -c "${SSH_PATH}/${KEY_FILENAME}"
+# wc -c "${SSH_PATH}/${KEY_FILENAME}"
 
-printf "%s" "$DEPLOY_KEY_PUBLIC" > "${SSH_PATH}/${KEY_FILENAME}.pub"
-chmod 644 "${SSH_PATH}/${KEY_FILENAME}.pub"
-wc -c "${SSH_PATH}/${KEY_FILENAME}.pub"
+# printf "%s" "$DEPLOY_KEY_PUBLIC" > "${SSH_PATH}/${KEY_FILENAME}.pub"
+# chmod 644 "${SSH_PATH}/${KEY_FILENAME}.pub"
+# wc -c "${SSH_PATH}/${KEY_FILENAME}.pub"
 
 echo -e "Host github.com\n\tIdentityFile ~/.ssh/${KEY_FILENAME}\n\tStrictHostKeyChecking no\n\tAddKeysToAgent yes\n" >> "${SSH_PATH}/config"
 chmod 644 "${SSH_PATH}/config"
@@ -66,7 +66,7 @@ cd public
 git add .
 
 # Commit changes.
-msg="parent repo action automated rebuilding of site at $(date)"
+msg="${GITHUB_REPOSITORY} action hugo-deploy-gh-org-pages automated rebuilding of site at $(date)"
 git commit -am "$msg"
 
 # Push source and build repos.
