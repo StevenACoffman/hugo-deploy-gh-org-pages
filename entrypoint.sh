@@ -15,7 +15,8 @@ chmod 600 "${HOME}/.ssh/id_rsa"
 echo "Host github.com\n\tStrictHostKeyChecking no\n" >> "${HOME}/.ssh/config"
 chmod 644 "${HOME}/.ssh/config"
 
-
+cd $GITHUB_WORKSPACE
+ls -la
 printf "\033[0;32mSubmodule Safety Engaged...\033[0m\n"
 git submodule sync --recursive && git submodule update --init --recursive
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
