@@ -1,11 +1,11 @@
-# hugo-org-action
+# hugo-deploy-gh-org-pages
 Github Action to Automate Hugo extended for a Github Organization Pages
 
 
-[![license](https://img.shields.io/github/license/StevenACoffman/hugo-org-action.svg)](https://github.com/StevenACoffman/hugo-org-action/blob/master/LICENSE)
-[![release](https://img.shields.io/github/release/StevenACoffman/hugo-org-action.svg)](https://github.com/StevenACoffman/hugo-org-action/releases/latest)
-[![GitHub release date](https://img.shields.io/github/release-date/StevenACoffman/hugo-org-action.svg)](https://github.com/StevenACoffman/hugo-org-action/releases)
-![StevenACoffman/hugo-org-action latest version](https://img.shields.io/github/release/StevenACoffman/hugo-org-action.svg?label=StevenACoffman%2Fhugo-org-action)
+[![license](https://img.shields.io/github/license/StevenACoffman/hugo-deploy-gh-org-pages.svg)](https://github.com/StevenACoffman/hugo-deploy-gh-org-pages/blob/master/LICENSE)
+[![release](https://img.shields.io/github/release/StevenACoffman/hugo-deploy-gh-org-pages.svg)](https://github.com/StevenACoffman/hugo-deploy-gh-org-pages/releases/latest)
+[![GitHub release date](https://img.shields.io/github/release-date/StevenACoffman/hugo-deploy-gh-org-pages.svg)](https://github.com/StevenACoffman/hugo-deploy-gh-org-pages/releases)
+![StevenACoffman/hugo-deploy-gh-org-pages latest version](https://img.shields.io/github/release/StevenACoffman/hugo-deploy-gh-org-pages.svg?label=StevenACoffman%2Fhugo-deploy-gh-org-pages)
 ![StevenACoffman/actions-gh-pages latest version](https://img.shields.io/github/release/StevenACoffman/actions-gh-pages.svg?label=StevenACoffman%2Factions-gh-pages)
 
 
@@ -67,6 +67,6 @@ action "Filters for GitHub Actions" {
 
 ## License
 
-[MIT License - StevenACoffman/hugo-org-action]
+[MIT License - StevenACoffman/hugo-deploy-gh-org-pages]
 
-[MIT License - StevenACoffman/hugo-org-action]: https://github.com/StevenACoffman/hugo-org-action/blob/master/LICENSE
+[MIT License - StevenACoffman/hugo-deploy-gh-org-pages]: https://github.com/StevenACoffman/hugo-deploy-gh-org-pages/blob/master/LICENSE
