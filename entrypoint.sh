@@ -1,4 +1,4 @@
-${KEY_FILENAME}#!/bin/sh
+#!/bin/sh
 set -e
 # HOME=/github/workspace
 SSH_PATH="/root/.ssh"
@@ -44,7 +44,7 @@ git config --global user.name "$GITHUB_ACTOR"
 git config --global core.sshCommand 'ssh -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa -F /dev/null'
 
 
-cd $GITHUB_WORKSPACE
+cd "$GITHUB_WORKSPACE" || exit 1
 ls -la "${SSH_PATH}/.ssh"
 printf "\033[0;32mSubmodule Safety Engaged...\033[0m\n"
 git submodule sync --recursive && git submodule update --init --recursive
