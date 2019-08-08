@@ -24,7 +24,7 @@ RUN apk add --update git openssh-client bash git-subtree \
     && apk upgrade \
     && apk add --no-cache ca-certificates
 COPY --from=build /go/bin/hugo /usr/local/bin
-WORKDIR /github/workspace
+
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
