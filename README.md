@@ -6,7 +6,6 @@ Github Action to Automate Hugo extended for a Github Organization Pages
 [![release](https://img.shields.io/github/release/StevenACoffman/hugo-deploy-gh-org-pages.svg)](https://github.com/StevenACoffman/hugo-deploy-gh-org-pages/releases/latest)
 [![GitHub release date](https://img.shields.io/github/release-date/StevenACoffman/hugo-deploy-gh-org-pages.svg)](https://github.com/StevenACoffman/hugo-deploy-gh-org-pages/releases)
 ![StevenACoffman/hugo-deploy-gh-org-pages latest version](https://img.shields.io/github/release/StevenACoffman/hugo-deploy-gh-org-pages.svg?label=StevenACoffman%2Fhugo-deploy-gh-org-pages)
-![StevenACoffman/actions-gh-pages latest version](https://img.shields.io/github/release/StevenACoffman/actions-gh-pages.svg?label=StevenACoffman%2Factions-gh-pages)
 
 
 ## GitHub Actions for building Hugo extended and deploying to a Github Organization Pages Submodule Repository
