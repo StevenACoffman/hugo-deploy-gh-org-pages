@@ -12,12 +12,6 @@ then
    exit 1
 fi
 
-if [ "$DEPLOY_KEY_PUBLIC" = "" ]
-then
-   echo "DEPLOY_KEY_PUBLIC Does not exist"
-   exit 1
-fi
-
 printf "%s" "$DEPLOY_KEY_PRIVATE" > "${SSH_PATH}/${KEY_FILENAME}"
 chmod 600 "${SSH_PATH}/${KEY_FILENAME}"
 # wc -c "${SSH_PATH}/${KEY_FILENAME}"
@@ -39,6 +33,10 @@ set +e
 ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${SSH_PATH}/${KEY_FILENAME}" -F /dev/null -Tv git@github.com
 set -e
 echo "set git"
+if [ "$EMAIL" = "" ]
+then
+  EMAIL="${GITHUB_ACTOR}"
+fi
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
 git config --global core.sshCommand 'ssh -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa -F /dev/null'
