@@ -28,20 +28,29 @@ ssh-add "${SSH_PATH}/${KEY_FILENAME}"
 
 ssh-keyscan github.com > "${SSH_PATH}/known_hosts"
 chmod 644 "${SSH_PATH}/known_hosts"
-# Debug ssh:
-set +e
-ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${SSH_PATH}/${KEY_FILENAME}" -F /dev/null -Tv git@github.com
-set -e
-echo "set git"
-if [ "$EMAIL" = "" ]
-then
-  EMAIL="${GITHUB_ACTOR}"
-fi
+echo "Setting git config globally"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
 git config --global core.sshCommand 'ssh -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa -F /dev/null'
 git config --global status.submodulesummary 1
 git config --global diff.submodule log
+
+if [ "$DEBUG" = "" ]
+then
+   echo "DEBUG environment variable not set, so skipping ssh test"
+fi
+else
+  echo "Debug ssh:"
+  set +e
+  ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${SSH_PATH}/${KEY_FILENAME}" -F /dev/null -Tv git@github.com
+  set -e
+fi
+
+if [ "$EMAIL" = "" ]
+then
+  echo "EMAIL defaulting to ${GITHUB_ACTOR}"
+  EMAIL="${GITHUB_ACTOR}"
+fi
 
 cd "$GITHUB_WORKSPACE" || exit 1
 ls -la "${SSH_PATH}"
