@@ -28,6 +28,11 @@ ssh-add "${SSH_PATH}/${KEY_FILENAME}"
 
 ssh-keyscan github.com > "${SSH_PATH}/known_hosts"
 chmod 644 "${SSH_PATH}/known_hosts"
+if [ "$EMAIL" = "" ]
+then
+  echo "EMAIL defaulting to ${GITHUB_ACTOR}"
+  EMAIL="${GITHUB_ACTOR}"
+fi
 echo "Setting git config globally"
 git config --global user.email "$EMAIL"
 git config --global user.name "$GITHUB_ACTOR"
@@ -44,12 +49,6 @@ else
   set +e
   ssh -o "IdentitiesOnly=yes" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "${SSH_PATH}/${KEY_FILENAME}" -F /dev/null -Tv git@github.com
   set -e
-fi
-
-if [ "$EMAIL" = "" ]
-then
-  echo "EMAIL defaulting to ${GITHUB_ACTOR}"
-  EMAIL="${GITHUB_ACTOR}"
 fi
 
 cd "$GITHUB_WORKSPACE" || exit 1
