@@ -52,7 +52,7 @@ jobs:
       with:
         args: branch master
     - name: hugo-deploy-gh-org-pages
-      uses: StevenACoffman/hugo-deploy-gh-org-pages@v1.0.2
+      uses: StevenACoffman/hugo-deploy-gh-org-pages@v1.0.3
       env:
         DEPLOY_KEY_PRIVATE: ${{ secrets.DEPLOY_KEY_PRIVATE }}
         EMAIL: ${{ secrets.EMAIL }}
@@ -67,7 +67,7 @@ workflow "Deploy to GitHub Organization Pages" {
 }
 
 action "hugo-deploy-gh-org-pages" {
-  uses = "StevenACoffman/hugo-deploy-gh-org-pages@v1.0.0"
+  uses = "StevenACoffman/hugo-deploy-gh-org-pages@v1.0.3"
   needs = ["Filters for GitHub Actions"]
   secrets = [
     "EMAIL",
