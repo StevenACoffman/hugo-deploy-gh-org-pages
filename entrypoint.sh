@@ -43,7 +43,6 @@ git config --global diff.submodule log
 if [ "$DEBUG" = "" ]
 then
    echo "DEBUG environment variable not set, so skipping ssh test"
-fi
 else
   echo "Debug ssh:"
   set +e
