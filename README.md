@@ -35,7 +35,29 @@ Inspired by [khanhicetea/gh-actions-hugo-deploy-gh-pages](https://github.com/kha
 - `HUGO_VERSION` : **optional**, default is **0.56.3** - [check all versions here](https://github.com/gohugoio/hugo/releases)
 
 ## Example
+Works both with the new yaml workflow format, or the old hcl format, but just use one.
 
+**.github/workflows/push.yml**
+```YAML
+on: push
+name: Deploy to GitHub Organization Pages
+jobs:
+  filtersForGitHubActions:
+    name: Filters for GitHub Actions
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Filters for GitHub Actions
+      uses: actions/bin/filter@master
+      with:
+        args: branch master
+    - name: hugo-deploy-gh-org-pages
+      uses: StevenACoffman/hugo-deploy-gh-org-pages@v1.0.2
+      env:
+        DEPLOY_KEY_PRIVATE: ${{ secrets.DEPLOY_KEY_PRIVATE }}
+        EMAIL: ${{ secrets.EMAIL }}
+        HUGO_VERSION: 0.56.3
+```
 **main.workflow**
 
 ```hcl
@@ -61,8 +83,6 @@ action "Filters for GitHub Actions" {
   args = "branch master"
 }
 ```
-
-
 
 ## License
 
