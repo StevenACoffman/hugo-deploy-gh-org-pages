@@ -19,7 +19,7 @@ Inspired by [khanhicetea/gh-actions-hugo-deploy-gh-pages](https://github.com/kha
 
 ## Secrets
 - `EMAIL` - The email that you would like to have your git push signed as.
-- `GIT_DEPLOY_KEY` - *Required* your deploy key which has **Write access**
+- `DEPLOY_KEY_PRIVATE` - *Required* your deploy key which has **Write access**
 
 ## Create Deploy Key
 
@@ -28,7 +28,7 @@ Inspired by [khanhicetea/gh-actions-hugo-deploy-gh-pages](https://github.com/kha
 1. Add the contents of your public key (`hugo.pub`) to the Key field and select the "Allow write access" option.
 1. Go to the repo named like `organization.github.io` that will contain the fully rendered version of your Hugo website
 1. Add the github action as below (the file will go in `.github/main.workflow`)
-1. Copy your private deploy key to `GIT_DEPLOY_KEY` secret in "Settings > Secrets"
+1. Copy your private deploy key to `DEPLOY_KEY_PRIVATE` secret in "Settings > Secrets"
 
 ## Environment Variables
 
