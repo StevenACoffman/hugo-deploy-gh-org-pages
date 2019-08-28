@@ -70,10 +70,14 @@ cd public
 # Add changes to git.
 git add .
 
-# Commit changes.
-msg="${GITHUB_REPOSITORY} action hugo-deploy-gh-org-pages automated rebuilding of site at $(date)"
-git commit -am "$msg"
+if output="$(git status --porcelain)" && [ -z "$output" ]; then
+  printf "\033[0;32mGit status is clean. Nothing to do.\033[0m\n"
+else
+  # Commit changes.
+  msg="${GITHUB_REPOSITORY} action hugo-deploy-gh-org-pages automated rebuilding of site at $(date)"
+  git commit -am "$msg"
 
-# Push source and build repos.
-git push origin master
+  # Push source and build repos.
+  git push origin master
+fi
 printf "\033[0;32mDone for now\033[0m\n"
